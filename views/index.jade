@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    h1= title
+
+    //request list
+    h2 Available Requests
+  
+    #requestTable
+        table
+            thead
+                th Name
+                th Address
+                th Accept
+            tbody
+    
+    #taskDescription
+        p
+            strong Details:
+            | <span id="taskinfo"></span>
+            br
+        
+    h2 Add Request
+        #addRequest
+            fieldset
+                input#inputName(type='text', placeholder='Your Name')
+                input#inputAddress(type='text', placeholder='The delivery location.')
+                br
+                input#inputDetails(type='text', placeholder='Describe the task that needs to be accomplished in full.  Include payment details.')
+                button#btnAddRequest Make a Request
