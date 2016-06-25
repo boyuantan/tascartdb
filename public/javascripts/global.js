@@ -5,21 +5,23 @@ $(document).ready(function() {
     populateTable();
     $('#requestTable table tbody').on('click', 'td a.link_user', showTaskDetails);
     $('#btnAddRequest').on('click', addRequest);
-    $('#requestTable table tbody').on('click', 'td a.link_delete', deleteRequest);
+    $('#requestTable table tbody').on('click', 'td a.accept_request', acceptRequest);
 });
 
 function populateTable() {
-    //soon-usable content
     var tableContent = '';
-
 
     $.getJSON( '/users/tasklist', function( data ) {
         requestTableData = data; //saving all data into global variable for demo
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="link_user" rel="' + this.name + '">' + this.name + '</a></td>';
+            tableContent += '<td><a href="#" class="show_details" rel="' + this.name + '">' + this.name + '</a></td>';
+            tableContent += '<td>' + this.age + '</td>';
+            tableContent += '<td>' + this.gender + '</td>';
             tableContent += '<td>' + this.address + '</td>';
-            tableContent += '<td><a href="#" class="link_delete" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td>' + this.date + '</td>';
+            tableContent += '<td>' + this.payment + '</td>';
+            tableContent += '<td><a href="#" class="accept_request" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
 
@@ -35,6 +37,8 @@ function showTaskDetails() {
     
     var userObject = requestTableData[arrayPosition];
     
+    $('#emailaddress').text(userObject.email);
+    $('#phonenum').text(userObject.phone);
     $('#taskinfo').text(userObject.details);
 };
 
@@ -48,8 +52,14 @@ function addRequest(event) {
     
     if (validRequest) {
         var newRequest = {
-            'username' : $('addRequest fieldset input#inputName').val(),
+            'name' : $('addRequest fieldset input#inputName').val(),
+            'age' : $('addRequest fieldset input#inputAge').val(),
+            'gender' : $('addRequest fieldset input#inputGender').val(),
             'address' : $('addRequest fieldset input#inputAddress').val(),
+            'date' : $('addRequest fieldset input#inputDate').val(),
+            'payment' : $('addRequest fieldset input#inputPayment').val(),
+            'phone' : $('addRequest fieldset input#inputPhone').val(),
+            'email' : $('addRequest fieldset input#inputEmail').val(),
             'details' : $('addRequest fieldset input#inputDetails').val()
         };
         
@@ -71,17 +81,19 @@ function addRequest(event) {
     }
 }
 
-function deleteRequest(event) {
+function acceptRequest(event) {
     event.preventDefault();
     
-    $.ajax({
-        type: 'DELETE',
-        url: 'users/deletereq/' + $(this).attr('rel')
-    }).done(function(response) {
-        if (response.msg !== "") {
+    if(confirm("If for some reason you cannot accomplish the task, please contact the original poster.  Click 'yes' if you understand.")) {
+        $.ajax({
+            type: 'DELETE',
+            url: 'users/deletereq/' + $(this).attr('rel')
+        }).done(function(response) {
+            if (response.msg !== "") {
             alert('Error: ' + response.msg);
         }
-        
         populateTable();
     });
+    }
+    
 }

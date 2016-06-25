@@ -10,12 +10,22 @@ block content
         table
             thead
                 th Name
+                th Age
+                th Gender
                 th Address
+                th Date
+                th Payment
                 th Accept
             tbody
     
     #taskDescription
         p
+            strong Email:
+            | <span id="emailaddress"></span>
+            br
+            strong Phone Number:
+            | <span id="phonenum"></span>
+            br
             strong Details:
             | <span id="taskinfo"></span>
             br
@@ -24,7 +34,16 @@ block content
         #addRequest
             fieldset
                 input#inputName(type='text', placeholder='Your Name')
+                input#inputAge(type='text', placeholder='Your Age')
+                input#inputGender(type='text', placeholder='Your Gender')
+                br
                 input#inputAddress(type='text', placeholder='The delivery location.')
+                input#inputDate(type='text', placeholder='When does the task need to be accomplished?')
+                br
+                input#inputPayment(type='text', placeholder='How much will the taskee be paid?')
+                br
+                input#inputPhone(type='text', placeholder='What is your phone number?')
+                input#inputEmail(type='text', placeholder='What is your email address?')
                 br
                 input#inputDetails(type='text', placeholder='Describe the task that needs to be accomplished in full.  Include payment details.')
                 button#btnAddRequest Make a Request

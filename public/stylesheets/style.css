@@ -1,0 +1,29 @@
+h2 {
+    text-align: center;
+    border: 1px solid black;
+}
+
+#requestTable {
+    width: 50vh;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+th, tr {
+    padding: 5vh;
+}
+
+td {
+    text-align: center;
+}
+
+#taskDescription {
+    width: 50vh;
+}
+
+#btnRequest {
+    text-align: center;
+    border: 2px solid black;
+    padding: 10px;
+    background-color: transparent;
+}
