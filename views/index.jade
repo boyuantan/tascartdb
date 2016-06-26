@@ -1,36 +1,38 @@
 extends layout
 
 block content
-    h1= title
-
-    //request list
-    h2 Available Requests
-  
-    #requestTable
-        table
-            thead
-                th Name
-                th Age
-                th Gender
-                th Address
-                th Date
-                th Payment
-                th Accept
-            tbody
+    .gap-start
+    .triangle
     
-    #taskDescription
-        p
-            strong Email:
-            | <span id="emailaddress"></span>
-            br
-            strong Phone Number:
-            | <span id="phonenum"></span>
-            br
-            strong Details:
-            | <span id="taskinfo"></span>
-            br
-        
-    h2 Add Request
+    .container.request
+        #requestTable
+            table
+                thead
+                    th Name
+                    th Age
+                    th Gender
+                    th Address
+                    th Date
+                    th Payment
+                    th Accept
+                tbody
+    
+    .container.description            
+        #taskDescription
+            p
+                strong Email:
+                | <span id="emailaddress"></span>
+                br
+                strong Phone Number:
+                | <span id="phonenum"></span>
+                br
+                strong Details:
+                | <span id="taskinfo"></span>
+                br
+    
+    .container.add
+        .up-triangle
+        h2 Add Request
         #addRequest
             fieldset
                 input#inputName(type='text', placeholder='Your Name')

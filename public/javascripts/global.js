@@ -2,8 +2,10 @@ var requestTableData = [];
 
 //DOM ready
 $(document).ready(function() {
+    
     populateTable();
-    $('#requestTable table tbody').on('click', 'td a.link_user', showTaskDetails);
+    
+    $('#requestTable table tbody').on('click', 'td a.show_details', showTaskDetails);
     $('#btnAddRequest').on('click', addRequest);
     $('#requestTable table tbody').on('click', 'td a.accept_request', acceptRequest);
 });
@@ -11,9 +13,10 @@ $(document).ready(function() {
 function populateTable() {
     var tableContent = '';
 
-    $.getJSON( '/users/tasklist', function( data ) {
-        requestTableData = data; //saving all data into global variable for demo
-        $.each(data, function(){
+    $.getJSON('/users/tasklist', function(data) {
+        requestTableData = data; //going through all elements of array
+        
+        $.each(data, function(){ //add each element in
             tableContent += '<tr>';
             tableContent += '<td><a href="#" class="show_details" rel="' + this.name + '">' + this.name + '</a></td>';
             tableContent += '<td>' + this.age + '</td>';
@@ -21,7 +24,7 @@ function populateTable() {
             tableContent += '<td>' + this.address + '</td>';
             tableContent += '<td>' + this.date + '</td>';
             tableContent += '<td>' + this.payment + '</td>';
-            tableContent += '<td><a href="#" class="accept_request" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td><a href="#" class="accept_request" rel="' + this._id + '">Accept Request</a></td>';
             tableContent += '</tr>';
         });
 
@@ -46,21 +49,24 @@ function addRequest(event) {
     event.preventDefault();
     
     var validRequest = true;
+    
     $('#addRequest input').each(function(index, val) {
-        if($(this).val() === '') { validRequest = false; }
+        if($(this).val() === '') { 
+            validRequest = false; 
+        }
     });
     
     if (validRequest) {
         var newRequest = {
-            'name' : $('addRequest fieldset input#inputName').val(),
-            'age' : $('addRequest fieldset input#inputAge').val(),
-            'gender' : $('addRequest fieldset input#inputGender').val(),
-            'address' : $('addRequest fieldset input#inputAddress').val(),
-            'date' : $('addRequest fieldset input#inputDate').val(),
-            'payment' : $('addRequest fieldset input#inputPayment').val(),
-            'phone' : $('addRequest fieldset input#inputPhone').val(),
-            'email' : $('addRequest fieldset input#inputEmail').val(),
-            'details' : $('addRequest fieldset input#inputDetails').val()
+            'name' : $('#inputName').val(),
+            'age' : $('#inputAge').val(),
+            'gender' : $('#inputGender').val(),
+            'address' : $('#inputAddress').val(),
+            'date' : $('#inputDate').val(),
+            'payment' : $('#inputPayment').val(),
+            'phone' : $('#inputPhone').val(),
+            'email' : $('#inputEmail').val(),
+            'details' : $('#inputDetails').val()
         };
         
         $.ajax({

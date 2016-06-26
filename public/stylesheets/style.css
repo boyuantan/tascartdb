@@ -1,13 +1,52 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+   text-align: center; 
+}
+
 h2 {
     text-align: center;
-    border: 1px solid black;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+}
+
+.gap-start {
+    position: absolute;
+    width: 100%;
+    height: 10vh;
+    margin-top: -15px;
+    background-color: #FFC857;
+}
+
+.triangle {
+    z-index: 1;
+    display: inline-block;
+    position: absolute;
+    margin-left: 50%;
+    transform: translate(-50%, 7vh);
+    width: 0; 
+    height: 0; 
+    border-left: 10vh solid transparent;
+    border-right: 10vh solid transparent;
+    border-top: 10vh solid #FFC857;
+}
+
+.request {
+    background-color: #DCEDFF;
 }
 
 #requestTable {
     width: 50vh;
     margin-left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-110%, 15vh);
+    height: 100px;
 }
+
 
 th, tr {
     padding: 5vh;
@@ -17,13 +56,68 @@ td {
     text-align: center;
 }
 
+.description {
+    background-color: #94B0DA;
+    transform: translateY(-10vh);
+}
+
 #taskDescription {
     width: 50vh;
 }
 
-#btnRequest {
+#taskDescription > p {
+    position: absolute;
+    margin: 10vh;
+}
+
+.add {
+    background-color: #E8E8D3;
+    transform: translateY(-15vh);
+}
+
+.add h2 {
+    margin-top: 20px;
+    padding: 20px;
+    display: inline-block;
+    border: 1px solid black;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+input {
+    margin-left: 50%;
+    border: 1px solid lightgrey;
+    transform: translateX(-50%);
+    display: inline-block;
+    width: 100vh;
+    margin-top: 10px;
+}
+
+#inputDetails {
+    height: 10vh;
+}
+
+#btnAddRequest {
+    margin-left: 50%;
+    transform: translate(-50%, 10vh);
     text-align: center;
-    border: 2px solid black;
+    border: none;
     padding: 10px;
-    background-color: transparent;
+    background-color: #FFC857;
+}
+
+#btnAddRequest:hover {
+    cursor: pointer;
+}
+
+.up-triangle {
+    position: absolute;
+    top: -9.7vh;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 0; 
+    border-left: 10vh solid transparent;
+    border-right: 10vh solid transparent;
+    border-bottom: 10vh solid #E8E8D3;
 }
