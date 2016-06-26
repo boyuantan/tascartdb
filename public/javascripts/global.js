@@ -3,16 +3,23 @@ var requestTableData = [];
 //DOM ready
 $(document).ready(function() {
     
-    populateTable();
+    populateTable(); //fill table when document loads
     
+    //when a name is clicked in the table, the details of the task open up
     $('#requestTable table tbody').on('click', 'td a.show_details', showTaskDetails);
-    $('#btnAddRequest').on('click', addRequest);
+    
+    //when a user clicks to accept the request on the table
     $('#requestTable table tbody').on('click', 'td a.accept_request', acceptRequest);
+    
+    //when a user fills in the request sheet and clicks on submit button
+    $('#btnAddRequest').on('click', addRequest);
+    
 });
 
 function populateTable() {
     var tableContent = '';
-
+    //variable to store the contents of the data from each object in array
+    
     $.getJSON('/users/tasklist', function(data) {
         requestTableData = data; //going through all elements of array
         
@@ -28,21 +35,23 @@ function populateTable() {
             tableContent += '</tr>';
         });
 
-        $('#requestTable table tbody').html(tableContent);
+        $('#requestTable table tbody').html(tableContent); //table is filled with content
     });
 };
 
 function showTaskDetails() {
     event.preventDefault();
     
+    //the index of the name is used to find the index of the object stored in the global array
     var username = $(this).attr('rel');
     var arrayPosition = requestTableData.map(function(arrayItem) {return arrayItem.name;}).indexOf(username);
     
     var userObject = requestTableData[arrayPosition];
     
-    $('#emailaddress').text(userObject.email);
-    $('#phonenum').text(userObject.phone);
-    $('#taskinfo').text(userObject.details);
+    //the details of the request are made available for viewing
+    $('#emailaddress').text(" " + userObject.email);
+    $('#phonenum').text(" " + userObject.phone);
+    $('#taskinfo').text(" " + userObject.details);
 };
 
 function addRequest(event) {
@@ -50,6 +59,7 @@ function addRequest(event) {
     
     var validRequest = true;
     
+    //validation to ensure no field is blank
     $('#addRequest input').each(function(index, val) {
         if($(this).val() === '') { 
             validRequest = false; 
@@ -57,7 +67,8 @@ function addRequest(event) {
     });
     
     if (validRequest) {
-        var newRequest = {
+        
+        var newRequest = { //values of input fields are collected
             'name' : $('#inputName').val(),
             'age' : $('#inputAge').val(),
             'gender' : $('#inputGender').val(),
@@ -69,7 +80,7 @@ function addRequest(event) {
             'details' : $('#inputDetails').val()
         };
         
-        $.ajax({
+        $.ajax({ //ajax call to post json data, later saved to tasklist collection
             type : 'POST',
             data : newRequest,
             url : '/users/postreq',
@@ -91,7 +102,7 @@ function acceptRequest(event) {
     event.preventDefault();
     
     if(confirm("If for some reason you cannot accomplish the task, please contact the original poster.  Click 'yes' if you understand.")) {
-        $.ajax({
+        $.ajax({ //ajax call to delete task info
             type: 'DELETE',
             url: 'users/deletereq/' + $(this).attr('rel')
         }).done(function(response) {
